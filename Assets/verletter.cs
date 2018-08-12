@@ -117,6 +117,7 @@ public class verletter : MonoBehaviour {
                 rigidBodies
                     .ForEach((Rigidbody rb) => {
                         Vector2 p = V2FromV3(rb.transform.position);
+                        rb.AddForce(overallForce);
                         if (colliders[i].OverlapPoint(p))
                         {
                             tempCircleColliderGameObject.transform.position = rb.transform.position;
