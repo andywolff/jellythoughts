@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class verletSpring : MonoBehaviour {
 
     public Transform[] springTargets;
     public float[] targetDistance;
     public float springForce = 1f;
+    public bool isInnerVertex = false;
     Rigidbody rb;
 
-	// Use this for initialization
-	void Start () {
+    public void init()
+    {
         rb = GetComponent<Rigidbody>();
         targetDistance = new float[springTargets.Length];
         int i = 0;
@@ -19,10 +21,12 @@ public class verletSpring : MonoBehaviour {
             targetDistance[i] = (t.position - transform.position).magnitude;
             i++;
         }
-	}
+    }
 
     void FixedUpdate()
     {
+        if (targetDistance == null || targetDistance.Length == 0) return;
+
         int i = 0;
         foreach (Transform t in springTargets)
         {
@@ -40,8 +44,8 @@ public class verletSpring : MonoBehaviour {
 
 
 
-    private void OnDrawGizmos()
-    {
-        foreach (Transform t in springTargets) Gizmos.DrawLine(transform.position, t.position);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    foreach (Transform t in springTargets) Gizmos.DrawLine(transform.position, t.position);
+    //}
 }
