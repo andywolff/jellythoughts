@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: blue_bg
+  m_Name: blue_bg_highlight
   m_Shader: {fileID: 4800000, guid: c857eb5ee1caa2b4991b1e7421f8e7ff, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -73,6 +73,6 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.19411768, g: 0.528, b: 0.22405195, a: 1}
-    - _Color1: {r: 0.328578, g: 0.16641437, b: 0.83823526, a: 1}
-    - _Color2: {r: 0.24430668, g: 0.114186846, b: 0.64705884, a: 0}
+    - _Color1: {r: 0.18431373, g: 0.21960786, b: 0.9568628, a: 1}
+    - _Color2: {r: 0.09001945, g: 0.18329011, b: 0.8161765, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

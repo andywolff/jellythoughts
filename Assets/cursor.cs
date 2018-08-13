@@ -44,7 +44,7 @@ public class cursor : MonoBehaviour {
         Collider closest = Physics.OverlapSphere(
                 mousePos,
                 snapRadius,
-                1 << LayerMask.NameToLayer("selectable"))
+                (1 << LayerMask.NameToLayer("selectable")) | (1 << LayerMask.NameToLayer("thoughtKiller")))
                 .OrderBy((Collider c) => (c.transform.position - transform.position).sqrMagnitude)
                 .FirstOrDefault();
         if (closest != null)

@@ -41,8 +41,13 @@ public class verletSpring : MonoBehaviour {
         }
     }
 
-
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name.Contains("braindeath"))
+        {
+            SendMessageUpwards("OnHitDestroyTrigger", SendMessageOptions.DontRequireReceiver);
+        }
+    }
 
     //private void OnDrawGizmos()
     //{

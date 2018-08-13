@@ -17,13 +17,35 @@ public class verletter : MonoBehaviour {
     private static CircleCollider2D tempCircleCollider;
     private static float springForce = 2000f;
 
+    public enum JellyColor
+    {
+        RED,
+        GREEN,
+        BLUE,
+        GRAY,
+    }
+    public JellyColor color = JellyColor.GRAY;
+
+    public static Material getMatFromJellyColor(JellyColor c)
+    {
+        switch (c)
+        {
+            case JellyColor.RED: return Game.instance.data.redMat;
+            case JellyColor.GREEN: return Game.instance.data.greenMat;
+            case JellyColor.BLUE: return Game.instance.data.blueMat;
+            default: return Game.instance.data.grayMat;
+        }
+    }
+
     // Use this for initialization
     void Start () {
+        // init static contactFilter2D
         if (contactFilter2D.Equals(default(ContactFilter2D)))
         {
             contactFilter2D.SetLayerMask(1 << LayerMask.NameToLayer("jellymesh"));
         }
 
+        // init static tempCircleCollider
         if (tempCircleColliderGameObject == null)
         {
             tempCircleColliderGameObject = new GameObject("tempCircleCollider");
@@ -32,16 +54,25 @@ public class verletter : MonoBehaviour {
             tempCircleColliderGameObject.SetActive(false);
         }
 
+        // register self in game map
+        Game.instance.addJelly(this);
+
+        // Gather components
         Rigidbody[] rbs = GetComponentsInChildren<Rigidbody>();
         meshFilter = GetComponent<MeshFilter>();
         polygonCollider = GetComponentInChildren<PolygonCollider2D>();
 
-        // Configure verletSpring component on children
+        // Determine mat by color
+        Material mat = getMatFromJellyColor(color);
+        GetComponent<Renderer>().material = mat;
+
+        // Configure children (ensure verletSpring component, initialize it with neighbors, and apply color mat)
         int i = 0;
         for (i = 0; i < rbs.Length; i++)
         {
             verletSpring spring = rbs[i].gameObject.GetComponent<verletSpring>();
             if (spring == null) spring = rbs[i].gameObject.AddComponent<verletSpring>();
+            spring.GetComponent<Renderer>().material = mat;
             spring.springTargets = (from rb in rbs where rb != rbs[i] select rb.transform).ToArray<Transform>();
             spring.springForce = springForce;
             spring.init();
@@ -51,10 +82,10 @@ public class verletter : MonoBehaviour {
         Mesh mesh = new Mesh();
         mesh.MarkDynamic();
         mesh.vertices = getMeshVertices();
-        //mesh.uv = (from rb in rbs select Vector2.zero).ToArray<Vector2>();
+        // TODO: maybe configure UV
         if (mesh.vertices.Length == 9)
         {
-            // Stupid triangle ordering shit, TODO: automate this
+            // Stupid triangle ordering weirdness, TODO: automate this
             mesh.triangles = new int[] {
                 0,3,1,
                 1,3,4,
@@ -88,7 +119,7 @@ public class verletter : MonoBehaviour {
         }
         meshFilter.mesh = mesh;
 
-        // configure collider polygon
+        // configure collider polygon. gather edge points and apply them to the polygon collider
         edgePoints = (from rb in GetComponentsInChildren<Rigidbody>()
                       where !rb.GetComponent<verletSpring>().isInnerVertex // select edge points
                       orderby -Mathf.Atan2(centerPoint.position.y - rb.position.y, centerPoint.position.x - rb.position.x) // order clockwise around center point
@@ -99,9 +130,11 @@ public class verletter : MonoBehaviour {
 
     private void Update()
     {
+        // update mesh and polygon collider
         meshFilter.mesh.vertices = getMeshVertices();
         updatePolygon();
 
+        // apply forces to avoid overlapping with other jellies
         int numHits = polygonCollider.OverlapCollider(contactFilter2D, colliders);
         if (numHits > 0)
         {
@@ -129,6 +162,19 @@ public class verletter : MonoBehaviour {
             }
             tempCircleColliderGameObject.SetActive(false);
         }
+    }
+
+    private void OnDestroy()
+    {
+        Game.instance.removeJelly(this);
+        // maybe do a particle effect?
+    }
+
+    public void OnHitDestroyTrigger()
+    {
+        Game.instance.spawnParticles(color, centerPoint.GetComponent<Rigidbody>());
+
+        Destroy(gameObject);
     }
 
     private Vector3[] getMeshVertices()

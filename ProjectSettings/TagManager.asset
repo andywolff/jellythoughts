@@ -15,10 +15,10 @@ TagManager:
   - 
   - selectable
   - jellymesh
-  - 
-  - 
-  - 
-  - 
+  - target
+  - kill
+  - thoughtKiller
+  - blockOnlyThoughtKiller
   - 
   - 
   - 

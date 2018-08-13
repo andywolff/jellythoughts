@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e318a7d865dd8004fa2db988213be46e, type: 3}
+  m_Name: data
+  m_EditorClassIdentifier: 
+  redMat: {fileID: 2100000, guid: da53d2df60e9f0e4ebde76360c029931, type: 2}
+  greenMat: {fileID: 2100000, guid: a9dbd7d0b631ac546af0fbc6ab4b8745, type: 2}
+  blueMat: {fileID: 2100000, guid: 7e15607126985554c82b7b8f96e77b59, type: 2}
+  grayMat: {fileID: 2100000, guid: 66931c607d1f4e34187b9eb0c153d41d, type: 2}
+  redTargetMat: {fileID: 2100000, guid: 03cc1f0493fc1dc46af9ef048b87079c, type: 2}
+  greenTargetMat: {fileID: 2100000, guid: 95247a987c61ba34bb47b280ad725280, type: 2}
+  blueTargetMat: {fileID: 2100000, guid: e77b0c428ec9e2a40ac377557ccebb61, type: 2}
+  brightRedTargetMat: {fileID: 2100000, guid: 881f2e789087cdc4c889cf0cceb5eef1, type: 2}
+  brightBlueTargetMat: {fileID: 2100000, guid: 28e1f3c5b7d3b6a4c93e35b059acba5d, type: 2}
+  brightGreenTargetMat: {fileID: 2100000, guid: cfb9fe756c7e9444fa30ef24fcd376b3,
+    type: 2}
+  thoughtDiamond: {fileID: 1060168406408096, guid: 0c96ebde685b9d64a956a512ec2014d6,
+    type: 2}
+  thoughtBigSquare: {fileID: 1756424395733572, guid: 9ac7d1aeb2978cb4a8b218a349a98064,
+    type: 2}
+  thoughtFish: {fileID: 1490866125082054, guid: 79c3680a2c2c2d341a2a82e1edbe0e53,
+    type: 2}
+  thoughtWeirdConcaveBottom: {fileID: 1446431312556552, guid: 1062b5224020d794badcb41788add13f,
+    type: 2}
+  thoughtWideRectangle: {fileID: 1726589903297046, guid: 2a482c1da54d2f344bfa9abced688609,
+    type: 2}
