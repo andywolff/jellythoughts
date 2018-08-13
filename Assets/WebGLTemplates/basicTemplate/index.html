@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | %UNITY_WEB_NAME%</title>
+    <script src="%UNITY_WEBGL_LOADER_URL%"></script>
+    <script>
+    var gameInstance = UnityLoader.instantiate("gameContainer", "%UNITY_WEBGL_BUILD_URL%");
+    </script>
+  </head>
+  
+  <body style = "margin: 0; background: black; position:absolute;">
+    <div id="gameContainer" style="width: 100vw; height: 100vh; margin: auto"></div>
+  </body>
+
+  <script>
+  var updateCanvas = function() {
+	  var canvas = document.getElementById("#canvas");
+	  canvas.style.position = "absolute";
+	  canvas.style.margin = "auto";
+	  var naturalWidth = document.body.clientWidth;
+	  var aspectRatioWidth = document.body.clientHeight*16/10;
+	  var naturalHeight = document.body.clientHeight;
+	  var aspectRatioHeight = document.body.clientWidth*10/16;
+	  if (aspectRatioWidth < naturalWidth) {
+		canvas.width = aspectRatioWidth;
+		canvas.style.left = Math.floor((naturalWidth - aspectRatioWidth)/2) + "px";
+	  } else {
+	    canvas.width = naturalWidth;
+		canvas.style.left="0px";
+	  }
+	  if (aspectRatioHeight < naturalHeight) {
+		canvas.height = aspectRatioHeight;
+		canvas.style.top = Math.floor((naturalHeight - aspectRatioHeight)/2) + "px";
+	  } else {
+	    canvas.height = naturalHeight;
+		canvas.style.top="0px";
+	  }
+  };
+  setInterval(updateCanvas, 100);
+  </script>
+  
+</html>
